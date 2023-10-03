@@ -4,7 +4,7 @@ requires = ["hatchling", "setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "iterate_sequence"
+name = "sequence_iterator"
 version = "0.0.1"
 authors = [
   { name="Vicente González Ruiz", email="vicente.gonzalez.ruiz@gmail.com" },
@@ -23,6 +23,6 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
-"Homepage" = "https://github.com/vicente-gonzalez-ruiz/iterate_sequence"
-"Bug Tracker" = "https://github.com/vicente-gonzalez-ruiz/iterate_sequence/issues"
+"Homepage" = "https://github.com/vicente-gonzalez-ruiz/sequence_iterator"
+"Bug Tracker" = "https://github.com/vicente-gonzalez-ruiz/sequence_iterator/issues"
 
