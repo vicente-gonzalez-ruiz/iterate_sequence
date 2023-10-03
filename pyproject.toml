@@ -9,7 +9,7 @@ version = "0.0.1"
 authors = [
   { name="Vicente González Ruiz", email="vicente.gonzalez.ruiz@gmail.com" },
 ]
-description = "Tools for removing the tangential distortion in a collection of images"
+description = "An iterator for processing all the images of a folder"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
