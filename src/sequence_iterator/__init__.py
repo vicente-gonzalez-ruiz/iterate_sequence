@@ -32,7 +32,7 @@ class ImageSequenceIterator:
         for image_name in list_of_imagenames:
             img_name = f"{self.input_sequence_prefix}/{image_name}"
             image = cv2.imread(img_name, cv2.IMREAD_UNCHANGED)
-            logger.debug(f"Warping {img_name} {image.dtype} {np.min(image)} {np.max(image)} {np.average(image)}")
+            logger.debug(f"Reading {img_name} {image.dtype} {np.min(image)} {np.max(image)} {np.average(image)}")
             processed_image = self.process(image)
             img_name = f"{self.output_sequence_prefix}/{image_name}"
             logger.debug(f"Saving {img_name} {processed_image.dtype} {np.min(processed_image)} {np.max(processed_image)} {np.average(processed_image)}")
