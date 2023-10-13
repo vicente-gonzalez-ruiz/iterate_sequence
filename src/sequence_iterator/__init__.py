@@ -4,8 +4,8 @@ logging.basicConfig(format="[%(filename)s:%(lineno)s %(funcName)s()] %(message)s
 #logger.setLevel(logging.CRITICAL)
 #logger.setLevel(logging.ERROR)
 #logger.setLevel(logging.WARNING)
-logger.setLevel(logging.INFO)
-#logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 import numpy as np
 import cv2
@@ -38,5 +38,6 @@ class ImageSequenceIterator:
             logger.info(f"Saving {img_name} {processed_image.dtype} {np.min(processed_image)} {np.max(processed_image)} {np.average(processed_image)} {info}")
             cv2.imwrite(img_name, processed_image)
             img_name_no_extension = img_name.split(".")[0]
+            logger.debug(f"img_name_no_extension + '_info.txt' existence: {os.path.exists(img_name_no_extension + "_info.txt")}")
             with open(img_name_no_extension + "_info.txt", 'a') as f:
                 f.write(info + '\n')
