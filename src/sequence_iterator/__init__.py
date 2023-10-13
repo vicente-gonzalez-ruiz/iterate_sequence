@@ -32,10 +32,10 @@ class ImageSequenceIterator:
         for image_name in list_of_imagenames:
             img_name = f"{self.input_sequence_prefix}/{image_name}"
             image = cv2.imread(img_name, cv2.IMREAD_UNCHANGED)
-            logger.debug(f"Reading {img_name} {image.dtype} {np.min(image)} {np.max(image)} {np.average(image)}")
+            logger.info(f"Reading {img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
             processed_image, info = self.process(image)
             img_name = f"{self.output_sequence_prefix}/{image_name}"
-            logger.info(f"Saving {img_name} {processed_image.dtype} {np.min(processed_image)} {np.max(processed_image)} {np.average(processed_image)} {info}")
+            logger.info(f"Saving {img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
             cv2.imwrite(img_name, processed_image)
             img_name_no_extension = img_name.split(".")[0]
             logger.debug(f"{img_name_no_extension + '_info.txt'} existence: {os.path.exists(img_name_no_extension + '_info.txt')}")
