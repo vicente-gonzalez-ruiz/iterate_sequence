@@ -39,6 +39,7 @@ class ImageSequenceIterator:
             logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
             cv2.imwrite(output_img_name, processed_image)
             input_img_name_no_extension = input_img_name.split(".")[0]
+            output_img_name_no_extension = output_img_name.split(".")[0]
             input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
             output_info_file = f"{output_img_name_no_extension + '_info.txt'}"
             logger.debug(f"{input_info_file} existence: {os.path.exists(input_info_file)}")
