@@ -35,7 +35,7 @@ class ImageSequenceIterator:
             logger.debug(f"Reading {img_name} {image.dtype} {np.min(image)} {np.max(image)} {np.average(image)}")
             processed_image, info = self.process(image)
             img_name = f"{self.output_sequence_prefix}/{image_name}"
-            logger.debug(f"Saving {img_name} {processed_image.dtype} {np.min(processed_image)} {np.max(processed_image)} {np.average(processed_image)} {info}")
+            logger.info(f"Saving {img_name} {processed_image.dtype} {np.min(processed_image)} {np.max(processed_image)} {np.average(processed_image)} {info}")
             cv2.imwrite(img_name, processed_image)
             img_name_no_extension = img_name.split(".")[0]
             with open(img_name_no_extension + "_info.txt", 'a') as f:
