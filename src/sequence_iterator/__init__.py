@@ -10,6 +10,7 @@ logger.setLevel(logging.DEBUG)
 import numpy as np
 import cv2
 import os
+import shutil
 
 class ImageSequenceIterator:
     
@@ -30,14 +31,17 @@ class ImageSequenceIterator:
             [img for img in os.listdir(self.input_sequence_prefix)
              if self.image_extension in img])
         for image_name in list_of_imagenames:
-            img_name = f"{self.input_sequence_prefix}/{image_name}"
-            image = cv2.imread(img_name, cv2.IMREAD_UNCHANGED)
-            logger.info(f"Reading {img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
+            input_img_name = f"{self.input_sequence_prefix}/{image_name}"
+            image = cv2.imread(input_img_name, cv2.IMREAD_UNCHANGED)
+            logger.info(f"Reading {input_img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
             processed_image, info = self.process(image)
-            img_name = f"{self.output_sequence_prefix}/{image_name}"
-            logger.info(f"Saving {img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
-            cv2.imwrite(img_name, processed_image)
-            img_name_no_extension = img_name.split(".")[0]
-            logger.debug(f"{img_name_no_extension + '_info.txt'} existence: {os.path.exists(img_name_no_extension + '_info.txt')}")
-            with open(img_name_no_extension + "_info.txt", 'a') as f:
+            output_img_name = f"{self.output_sequence_prefix}/{image_name}"
+            logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
+            cv2.imwrite(output_img_name, processed_image)
+            input_img_name_no_extension = input_img_name.split(".")[0]
+            input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
+            output_info_file = f"{output_img_name_no_extension + '_info.txt'}"
+            logger.debug(f"{input_info_file} existence: {os.path.exists(input_info_file)}")
+            shutil.copy(input_info_file, output_info_file)
+            with open(output_info_file, 'a') as f:
                 f.write(info + '\n')
