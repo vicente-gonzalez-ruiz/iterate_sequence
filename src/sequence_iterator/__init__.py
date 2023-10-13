@@ -43,6 +43,7 @@ class ImageSequenceIterator:
             input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
             output_info_file = f"{output_img_name_no_extension + '_info.txt'}"
             logger.debug(f"{input_info_file} existence: {os.path.exists(input_info_file)}")
-            shutil.copy(input_info_file, output_info_file)
+            if os.path.exists(input_info_file):
+                shutil.copy(input_info_file, output_info_file)
             with open(output_info_file, 'a') as f:
                 f.write(info + '\n')
