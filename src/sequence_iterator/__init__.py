@@ -5,7 +5,7 @@ logging.basicConfig(format="[%(filename)s:%(lineno)s %(funcName)s()] %(message)s
 #logger.setLevel(logging.ERROR)
 #logger.setLevel(logging.WARNING)
 #logger.setLevel(logging.INFO)
-logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
 
 import numpy as np
 import cv2
@@ -17,10 +17,12 @@ class ImageSequenceIterator:
     def __init__(self,
                  input_sequence_prefix="/tmp/input",
                  output_sequence_prefix="/tmp/output",
-                 image_extension="png"):
+                 image_extension="png",
+                 logging_level=logging.WARNING):
         self.input_sequence_prefix = input_sequence_prefix
         self.output_sequence_prefix = output_sequence_prefix
         self.image_extension = image_extension
+        logger.setLevel(logging_level)
 
     def process(self,
                 image):
