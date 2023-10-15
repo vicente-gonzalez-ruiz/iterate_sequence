@@ -14,18 +14,21 @@ import shutil
 
 class ImageSequenceIterator:
     
-    def __init__(self,
-                 input_sequence_prefix="/tmp/input",
-                 output_sequence_prefix="/tmp/output",
-                 image_extension="png",
-                 logging_level=logging.WARNING):
+    def __init__(
+            self,
+            input_sequence_prefix="/tmp/input",
+            output_sequence_prefix="/tmp/output",
+            image_extension="png",
+            logging_level=logging.WARNING):
         self.input_sequence_prefix = input_sequence_prefix
         self.output_sequence_prefix = output_sequence_prefix
         self.image_extension = image_extension
         logger.setLevel(logging_level)
 
-    def process(self,
-                image):
+    def process(
+            self,
+            image,
+            info_file):
         raise NotImplementedError("Subclasses must implement this method.")
 
     def process_sequence(self):
@@ -36,16 +39,17 @@ class ImageSequenceIterator:
             input_img_name = f"{self.input_sequence_prefix}/{image_name}"
             image = cv2.imread(input_img_name, cv2.IMREAD_UNCHANGED)
             logger.info(f"Reading {input_img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
-            processed_image, info = self.process(image)
+            input_img_name_no_extension = input_img_name.split(".")[0]
+            input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
+            processed_image, info = self.process(image, input_info_file)
             output_img_name = f"{self.output_sequence_prefix}/{image_name}"
             logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
             cv2.imwrite(output_img_name, processed_image)
-            input_img_name_no_extension = input_img_name.split(".")[0]
             output_img_name_no_extension = output_img_name.split(".")[0]
-            input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
             output_info_file = f"{output_img_name_no_extension + '_info.txt'}"
             logger.debug(f"{input_info_file} existence: {os.path.exists(input_info_file)}")
             if os.path.exists(input_info_file):
                 shutil.copy(input_info_file, output_info_file)
             with open(output_info_file, 'a') as f:
                 f.write(info + '\n')
+
