@@ -28,7 +28,7 @@ class ImageSequenceIterator:
     def process(
             self,
             image,
-            image_filename
+            image_filename,
             info_filename):
         raise NotImplementedError("Subclasses must implement this method.")
 
