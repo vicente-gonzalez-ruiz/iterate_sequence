@@ -28,7 +28,8 @@ class ImageSequenceIterator:
     def process(
             self,
             image,
-            info_file):
+            image_filename
+            info_filename):
         raise NotImplementedError("Subclasses must implement this method.")
 
     def process_sequence(self):
@@ -41,7 +42,7 @@ class ImageSequenceIterator:
             logger.info(f"Reading {input_img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
             input_img_name_no_extension = input_img_name.split(".")[0]
             input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
-            processed_image, info = self.process(image, input_info_file)
+            processed_image, info = self.process(image, input_img_name, input_info_file)
             output_img_name = f"{self.output_sequence_prefix}/{image_name}"
             logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
             cv2.imwrite(output_img_name, processed_image)
