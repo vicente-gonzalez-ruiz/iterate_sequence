@@ -34,7 +34,7 @@ class ImageSequenceIterator:
 
     def process_sequence(self):
         list_of_imagenames = np.array(
-            [img for img in sort(os.listdir(self.input_sequence_prefix))
+            [img for img in sorted(os.listdir(self.input_sequence_prefix))
              if self.image_extension in img])
         for image_name in list_of_imagenames:
             input_img_name = f"{self.input_sequence_prefix}/{image_name}"
