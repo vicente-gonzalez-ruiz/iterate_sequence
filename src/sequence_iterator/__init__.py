@@ -43,7 +43,7 @@ class ImageSequenceIterator:
             input_img_name_no_extension = input_img_name.split(".")[0]
             input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
             processed_image, info = self.process(image, input_img_name, input_info_file)
-            if processed_image != None:
+            if info != None:
                 output_img_name = f"{self.output_sequence_prefix}/{image_name}"
                 logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
                 cv2.imwrite(output_img_name, processed_image)
