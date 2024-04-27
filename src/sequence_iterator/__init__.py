@@ -41,14 +41,14 @@ class ImageSequenceIterator:
             image = cv2.imread(input_img_name, cv2.IMREAD_UNCHANGED)
             logger.info(f"Reading {input_img_name} {image.dtype} min={np.min(image)} max={np.max(image)} avg={np.average(image)}")
             input_img_name_no_extension = input_img_name.split(".")[0]
-            input_info_file = f"{input_img_name_no_extension + '_info.txt'}"
+            input_info_file = f"{input_img_name_no_extension + '.txt'}"
             processed_image, info = self.process(image, input_img_name, input_info_file)
             if info != None:
                 output_img_name = f"{self.output_sequence_prefix}/{image_name}"
                 logger.info(f"Saving {output_img_name} {processed_image.dtype} min={np.min(processed_image)} max={np.max(processed_image)} avg={np.average(processed_image)} info={info}")
                 cv2.imwrite(output_img_name, processed_image)
                 output_img_name_no_extension = output_img_name.split(".")[0]
-                output_info_file = f"{output_img_name_no_extension + '_info.txt'}"
+                output_info_file = f"{output_img_name_no_extension + '.txt'}"
                 logger.debug(f"{input_info_file} existence: {os.path.exists(input_info_file)}")
                 if os.path.exists(input_info_file):
                     shutil.copy(input_info_file, output_info_file)
